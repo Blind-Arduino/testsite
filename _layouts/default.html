@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/accessibility.css" | relative_url }}">
+    {% if site.feed %}
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ "/atom.xml" | relative_url }}">
+    {% endif %}
+  </head>
+  <body>
+    {% include header.html %}
+
+    <main id="main-content" class="page-content wrapper" tabindex="-1">
+      {% include breadcrumbs.html %}
+      <article aria-labelledby="page-title">
+        <header class="page-header">
+          <h1 id="page-title">{{ page.title }}</h1>
+          {% if page.description %}<p class="page-description">{{ page.description }}</p>{% endif %}
+        </header>
+        <div class="post-content">
+          {{ content }}
+        </div>
+      </article>
+    </main>
+
+    {% include footer.html %}
+
+    <script>
+      // Move focus to first H2 in content on page load for screen reader users
+      document.addEventListener('DOMContentLoaded', function () {
+        var h2 = document.querySelector('.post-content h2');
+        var target = h2 || document.getElementById('main-content');
+        if (target) {
+          target.setAttribute('tabindex', '-1');
+          target.focus();
+        }
+      });
+
+      // Open external links in new tab with screen reader notice
+      document.addEventListener('DOMContentLoaded', function () {
+        var links = document.querySelectorAll('a[href^="http"]');
+        links.forEach(function (link) {
+          if (link.hostname !== window.location.hostname) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+            var label = link.getAttribute('aria-label') || link.textContent.trim();
+            link.setAttribute('aria-label', label + ' (opens in new tab)');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

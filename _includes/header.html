@@ -1,0 +1,27 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header role="banner" class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title }}</a>
+    {% if site.tagline %}<p class="site-tagline">{{ site.tagline }}</p>{% endif %}
+
+    <nav aria-label="Main navigation">
+      <ul role="list" class="nav-list">
+        {% assign pages = site.header_pages | default: site.pages %}
+        {% for nav_page in pages %}
+          {% assign page_path = nav_page %}
+          {% assign found = site.pages | where: "path", page_path | first %}
+          {% if found %}
+            <li>
+              {% if found.url == page.url %}
+                <span aria-current="page" class="nav-current">{{ found.title }}</span>
+              {% else %}
+                <a href="{{ found.url | relative_url }}">{{ found.title }}</a>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>
