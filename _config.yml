@@ -5,7 +5,7 @@ description: >-
   exploring accessible, non-visual techniques for designing, building,
   and using open-source hardware and software.
 baseurl: "/testsite"
-url: "https://blind-arduino.github.io"
+url: "https://blindarduino.org"
 
 theme: minima
 minima:
